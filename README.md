@@ -46,6 +46,8 @@ IAM Components
 
 # Practical Demo
 
+Users and Policies
+-
 - Login to AWS console using root account. Using root user we can technically do everything in AWS
 - Using IAM we avoid issues of deleting resources by users by use of authentication and authorization.
 
@@ -109,3 +111,27 @@ IAM Components
   - Using IAM now, we can list S3 buckets, create, modify them.
 
 
+Groups
+-
+- We've created IAM user and have attached policies to it.
+- For any new user, we can create user and attach it to a group so the pollicies granted to that group will be inherited to the user directly.
+- For custom policies, groups gets organizaed way to attach policies to users. This way we can reduce manual efforts and increase efficiency of authentication and authorization
+
+- Now login using root.
+  - Create a group and attach policy 
+
+![image](https://github.com/user-attachments/assets/14503133-cea5-4c9d-9230-ff8f7a9696f6)
+<img width="959" alt="image" src="https://github.com/user-attachments/assets/504a0857-3ad3-488a-b8d8-8895ddc57a60" />
+
+  - Now we can add users to group
+
+![image](https://github.com/user-attachments/assets/5cf8d7b4-2bf5-4118-a79c-d2330d890b26)
+![image](https://github.com/user-attachments/assets/256d129e-7c40-48e0-a335-9a2e1e021340)
+![image](https://github.com/user-attachments/assets/ed252096-058e-40d9-95fe-56726e2457c0)
+
+  - So if after some days, the users in the group requests for another policy, just add the policy to group so that it will be applied to all users inside this specific group
+  - Go to group and add permissions
+
+![image](https://github.com/user-attachments/assets/a683d56f-92a3-4aff-b947-d1ea7befa41e)
+
+  
