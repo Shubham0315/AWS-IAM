@@ -1,0 +1,13 @@
+# Resource-Based Policy for S3 Bucket Access, Granting another AWS account read access to your S3 bucket.
+
+{
+	"Version": "2012-10-17",
+	"Statement": [
+		{
+			"Effect": "Allow",
+			"Principal": { "AWS": "arn:aws:iam::123456789012:root" },
+			"Action": "s3:GetObject",
+			"Resource": "arn:aws:s3:::shubham315/*"
+		}
+	]
+}
