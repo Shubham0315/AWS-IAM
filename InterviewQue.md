@@ -78,3 +78,83 @@ What are IAM Groups?
 
 
 --------------------------------------------------------------------------------------------------
+
+How does IAM help manage permissions in AWS?
+-
+- AWS Identity and Access Management (IAM) is a crucial service for managing access to AWS resources securely. It allows you to control who can access your resources (authentication) and what actions they can perform (authorization).
+- To manage permissions we can use
+  - Users and groups
+  - Policies :- JSON based document to define permissions attached to users, groups, roles
+  - Setup MFA
+  - Use least privilege access principle
+  - Regularly review and audit permissions and policies
+
+--------------------------------------------------------------------------------------------------
+
+What is the difference between an inline policy and a managed policy?
+-
+- **Inline Policies**
+  - Embedded directly within user, group, role
+  - Tightly coupled with identity they're attached to, if identity is deleted inline policy is also deleted
+  - Used to assign temporary permissions for specific task or role
+ 
+- **Managed Policies**
+  - Created independently from users, groups and roles
+  - Can be reused across multiple identities
+  - 2 types AWS managed (created and maintained by AWS), Customer managed (flexible for customer use).
+  - Easier to update as changes are auto applied to attached identities
+  - AmazonS3ReadOnlyAccess :- AWS managed
+ 
+--------------------------------------------------------------------------------------------------
+
+What is the maximum number of IAM users that can be created per AWS account?
+-
+- In AWS we can create upto 5000 IAM users per account. This limit is adjustable by submitting a request to AWS support if we need more users
+
+--------------------------------------------------------------------------------------------------
+
+Can one IAM user belong to multiple groups?
+- 
+- Yes, an IAM user can belong to multiple IAM groups in AWS. This is useful for assigning multiple sets of permissions efficiently.
+- IAM user can be added upto 10 groups
+- Users effective permissions are sum of all permissions granted by attached policies in those groups
+- If there's a conflict (if one group allows and other denies), deny takes preference
+
+--------------------------------------------------------------------------------------------------
+
+What are IAM access keys and when are they used?
+-
+- AWS access keys are set of credentials used to authenticate programmatic access to AWS services (APIs) via AWS CLI, AWS SDK or API requests
+- Key components
+  - Access key ID :- Public identifier like username
+  - Secret Access key :- Private key like password.
+ 
+- IAM keys are used when we need to interact with resources using CLI, SDK, API or automate tasks via scripts, pipelines or manage infrastructure using tools like ansible, terraform
+
+- Avoid creating access keys for IAM users instead use IAM roles.
+- Rotate them regularly, apply least privilege attaching minimal permissions, store keys in AWS secret manager, never hardcode them
+
+--------------------------------------------------------------------------------------------------
+
+How can you enforce multi-factor authentication (MFA) for IAM users?
+-
+- Enable MFA for IAM users
+  - Select user - Security Creds - Multi Factor Auth add MFA device - Choose MFA device
+
+<img width="959" alt="image" src="https://github.com/user-attachments/assets/0a04e894-c67d-48f8-a926-fb1758900dd4" />
+
+- Enforce MFA using IAM policy
+  - To ensure all IAM users can only access AWS resources after enabling MFA, you can create and attach conditional policy
+  - This policy denies all actions unless MFA is enabled
+ 
+![image](https://github.com/user-attachments/assets/55321206-643f-4c69-8957-d8620836d8c1)
+
+- Attach Policy
+  - Policies - Create Policy - Choose JSON tab and paste MFA enforcement policy - Provide name and create policy
+  - Attach to IAM users or gorups
+ 
+![image](https://github.com/user-attachments/assets/e942d536-95ae-4907-a313-280cb564d9f6)
+
+- Test MFA Enforcement
+  - Try accessing resources without MFA, request should be denied
+  - We need to enable MFA here
