@@ -158,3 +158,108 @@ How can you enforce multi-factor authentication (MFA) for IAM users?
 - Test MFA Enforcement
   - Try accessing resources without MFA, request should be denied
   - We need to enable MFA here
+
+--------------------------------------------------------------------------------------------------
+
+What is the principle of least privilege in IAM?
+-
+- Principle of lest privilege in IAM is a security practice that ensures roles, users and services are granted only permissions required to perform the specific task.
+- It reduces risk of accidental data leaks and unauthorized actions. Milits impact of compromised credentials. Helps to maintain secure AWS env
+
+- To implement PoLP in IAM
+  - Start with deny by default - IAM follows implicitly deny rule. Only grant permissions necessary
+  - Use IAM groups and roles - Instead of individual users to simplify permission management
+  - Apply resource level permissions
+ 
+![image](https://github.com/user-attachments/assets/2a384d62-657f-4856-b0c7-bf22da56ffad)
+
+  - Use conditions for granular control - Conditions like restrict access based on IP address, time of day, MFA status, etc
+
+![image](https://github.com/user-attachments/assets/a9bbc675-de6a-4169-bc48-c339acdb3737)
+
+--------------------------------------------------------------------------------------------------
+
+How do you troubleshoot "Access Denied" errors in AWS?
+-
+- Identify failing user/role and request details
+- Verify IAM policies if any incorrect permissions attached
+- Confirm MFA and session conditions in policies
+
+--------------------------------------------------------------------------------------------------
+
+What is the difference between identity-based and resource-based policies?
+-
+- These are 2 types of IAM policies that control access to resources, but they differ in purpose, attachment method and scope
+
+- Identity based Policies
+  - Attached tdirectly to IAM identities like user, group and roles to perform specific actions
+  - Supports AWS managed and customer managed policies
+  - Include allow and deny statements
+  - Use conditions to restrict access
+
+![image](https://github.com/user-attachments/assets/a510ed89-9a7b-42e5-8eb5-2fe62f28873b)
+
+- Resource based Policies
+  - Attached directly to AWS resources (s3, lambda, SNS)
+  - Specify who can access resource and what actions they can perform
+  - Only support allow statement
+ 
+![image](https://github.com/user-attachments/assets/e83bcd25-e9d6-4752-9036-079ccd3c9f98)
+
+--------------------------------------------------------------------------------------------------
+
+What is an IAM permissions boundary?
+-
+- It is an advanced IAM feature that defines maximum permissions IAM user or role can have.
+- Ensures identity cannot perform any action outside specified boundary
+
+- It is identity based policy that sets maximum allowed permissions.
+- AWS evaluates permissions boundary alongside identity's attached policies
+- To perform action, both permissions boundary and identity based policy must allow it.
+
+- If we've IAM role with identity policy that allows full access to S3.
+  - In policy we've allowed all s3 action
+  - But in permission boundary we've obnly allowed to list objects of S3
+  - So the role attached can only read and list the objects
+ 
+- To create and attach permission boundary
+  - Create policy
+  - Attach policy as Permissions boundary :- select user/role - set permission boundary
+ 
+--------------------------------------------------------------------------------------------------
+
+How can you delegate permissions across AWS accounts?
+-
+
+--------------------------------------------------------------------------------------------------
+
+What is the AWS IAM best practice for granting permissions to applications?
+-
+- Use principle of least privilege and use IAM roles instead of hardcoding credentials
+- Use managed policies for common permissions
+- Implement IAM permission boundaries
+- Enable MFA
+- Use resource based policies for cross account access
+- Rotate access keys regularly
+
+--------------------------------------------------------------------------------------------------
+
+How can you delegate permissions across AWS accounts?
+- We can use IAM roles with cross-account access
+- It allows secure, controlled access between AWS accounts without sharing security credentials
+
+1. Identify accounts
+- Source (account where trusted user exists) and target account (account where resources are located and IAM role to be created)
+
+2. Create IAM role in target account
+- Create roles - Select AWS account as trusted entity - Enter account ID of trusted account (source) - Attach permissions
+
+3. Grant users permission to assume role
+- Go to IAM role in source account
+- Create policy - Add to user or group
+
+4. Assume role from Source
+- Command :- aws sts assume-role \
+  --role-arn "arn:aws:iam::123456789012:role/CrossAccountS3Access" \
+  --role-session-name "CrossAccountSession"
+- We'll get credentials in JSON, use them to access resources in account target
