@@ -263,3 +263,18 @@ How can you delegate permissions across AWS accounts?
   --role-arn "arn:aws:iam::123456789012:role/CrossAccountS3Access" \
   --role-session-name "CrossAccountSession"
 - We'll get credentials in JSON, use them to access resources in account target
+
+--------------------------------------------------------------------------------------------------
+
+How would you restrict IAM user access to specific IP addresses?
+-
+- To restrict IAM users access specific IP we can use IAM policy with condition element and "aws:SourceIP" condition key.
+- This ensures IAM user can only access AWS resources from trusted IP addresses or ranges
+- Add below kind of policy
+  - Effect us to deny ensuring it overrides any allow statements
+  - NotIpAddress ensures access is denied unless request comes from trusted IP range
+  - * in Action and Resource denies all actions unless conditions are met
+
+![image](https://github.com/user-attachments/assets/17dc9862-3cfc-412b-ac10-7cbb4f385e0a)
+
+- Attach policy to IAM user
