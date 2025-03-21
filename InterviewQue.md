@@ -75,3 +75,6 @@ What are IAM Groups?
 - Exaample scenario :-
   - Suppose our organization have teams like dev, admins, support
   - We can create groups for respective teams, assign relevant policies to each group, add users to appropriate groups
+
+
+--------------------------------------------------------------------------------------------------
