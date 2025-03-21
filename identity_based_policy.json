@@ -1,4 +1,4 @@
-# Identity-Based Policy for EC2 Access
+# Identity-Based Policy for EC2 Access, grant IAM user access to list EC2
 
 {
     "Version": "2012-10-17",
