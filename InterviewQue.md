@@ -303,6 +303,7 @@ What is AWS STS (Security Token Service) and how is it used with IAM?
 -
 - AWS STS is a web sevice that enables you to request temporary, limited privilege credentials for AWS resources.
 - These creds are ideal for granting secure, short-term access to resources without need to create long term IAM user credentials.
+- To create temporary credentials for third-party applications using IAM roles, you can leverage AWS Security Token Service (STS) with the **AssumeRole** API
 
 - Key Features :-
   - Temporary creds
@@ -317,3 +318,105 @@ What is AWS STS (Security Token Service) and how is it used with IAM?
   - AWS verifies creds
  
 --------------------------------------------------------------------------------------------------
+
+How can you enforce MFA for IAM roles?
+- 
+- To enforce MFA for IAM roles, we can use IAM policies with conditions that require MFA authentication.
+- This ensures only authenticated users with MFA enabled can assume specific roles
+
+1. Create IAM policy to require MFA
+
+![image](https://github.com/user-attachments/assets/a9da5ae3-93fa-4ff1-849a-a38e088490ac)
+
+  - "Effect": "Deny" :- ensures this rule overrides any allow statements
+  - {"aws:MultiFactorAuthPresent": "false"} :- blocks access if MFA not active
+  - IfExists :- ensures policy wont deny requests from services that dont support MFA
+
+2. Attach policy to IAM role
+
+3. Update trust policy for the role
+
+4. Test MFA requirement
+
+--------------------------------------------------------------------------------------------------
+
+How do you audit IAM permissions to ensure they follow security best practices?
+-
+- Auditing IAM permissions is crucial to ensure AWS env follows security best practices
+
+1. Review IAM roles, users, groups
+- Ensure they align with least privilege
+- Check for inactive users or roles, disable or delete them
+- Command :- aws iam get-account-authorization-details --query 'UserDetailList[*].[UserName, CreateDate, PasswordLastUsed]'
+
+2. Audit attached policies
+- List inline and managed policies for entities
+- Ensure permissions are role based rather than user-specific
+- Command (list attached policies) :- aws iam list-attached-user-policies --user-name <username>
+- Command (list inline policies ) :- aws iam list-user-policies --user-name <username>
+
+3. Use AWS IAM Access Analyzse
+- Helps identify resources that're shared publicly or with external accounts
+
+4. Identify and remove unused permissions
+
+5. Enforce MFA for sensitive accounts
+- Enable MFA for root accounts, users
+- Use IAM policy to deny access unless MFA is enabled
+
+6. Audit and restrict public access
+- Review resource policies and apply the principle of least privilege.
+
+7. Implement SCPs
+
+8. Regularly rotate and manage access keys
+- Enforce policy that denies user of long-term access keys
+
+--------------------------------------------------------------------------------------------------
+
+Explain the concept of IAM policy evaluation logic.
+-
+- Its a structured process that AWS follows to determine whether a given request should be allowed or denied
+
+- Key components of IAM policy evaluation
+  - Explicit deny :- strongest priority, always overrides any allow
+  - Explicit allow :- permits action if no explicit deny exist
+  - Implicit deny :- if now allow rule exist, request is denies by default
+ 
+- IAM policy Evaluation Process Flow
+  - Evaluate organization SCPs
+  - Evaluate resource based policies
+  - Evaluate IAM permission boundaries
+  - Evaluate identity based policies
+  - Evaluate session policiesImplicit deny (default behaviour)
+ 
+--------------------------------------------------------------------------------------------------
+
+How can you rotate IAM access keys securely?
+-
+- Rotating AWS IAM Access keys is essential to minimise risk of compromised credentials
+
+- Create New access key
+  - Command :- **aws iam create-acces-key --user-name shubham315**
+  - Write below JSON to create
+
+![image](https://github.com/user-attachments/assets/4559b13e-ac8b-447e-a36e-7405416964d9)
+
+- Update apps with new key
+  - Identify all systems, scripts or apps using old access key
+  - update those with new access key and secret key
+ 
+- Test new access key
+
+- Deactivate old access key
+  - Command :- **aws iam update-access-key --access-key-id <OldAccessKeyID> --status Inactive --user-name <username>**
+ 
+- Confirm no apps using old key
+  - Command :- **aws iam get-access-key-last-used --access-key-id <OldAccessKeyID>**
+
+- Delete old access key
+  - Command :- **aws iam delete-access-key --access-key-id <OldAccessKeyID> --user-name <username>**
+
+--------------------------------------------------------------------------------------------------
+
+
