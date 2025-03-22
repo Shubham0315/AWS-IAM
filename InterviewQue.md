@@ -419,4 +419,64 @@ How can you rotate IAM access keys securely?
 
 --------------------------------------------------------------------------------------------------
 
+What is a trust policy in AWS IAM, and how does it differ from an identity-based policy?
+-
+1. Trust Policy (Who can assume a role)
+- It is a JSON document defining who is allowed to assume specific role.
+- Attached only to IAM roles, defines who can assume role not what actions can they perform
+- Used "sts:AssumeRole" action to give permissions
 
+![image](https://github.com/user-attachments/assets/931b7ec3-0376-44ff-bc94-16c63b600ce3)
+
+2. Identity based policy (What actions are allowed)
+- Its a JSON document attached to IAM users, groups and roles. Defines what actions are allowed or denied on AWS resources
+- Specifies what actions or on which resources user or role can operate
+- Can include conditions for additional security controls
+
+- Trust policy grants third party acccount permission to assume role in AWS account
+- Identity based policy grants assumed role permission to manage specific resources
+
+--------------------------------------------------------------------------------------------------
+
+How do you use AWS Organizations in combination with IAM for centralized security management?
+-
+- Combining AWS Organizations with IAM enhances security and governance by enabling centralized control over multiple AWS accounts. This setup is ideal for implementing consistent security policies, managing permissions, and ensuring compliance across your cloud environment.
+
+- Key features of AWS Organizations for security management
+  - Centralized policy management
+  - SCPs
+  - Automated account creation
+ 
+- To use this we can
+  - Implement SCPs
+  - Enforce Identity based policies for granular control
+
+--------------------------------------------------------------------------------------------------
+
+What are JSON policy elements like Effect, Action, Resource, and Condition?
+-
+- Effect :- specifies whether statement allows or denies action
+- Action :- lists specific AWS actions that policy applies to
+- Resource :- Specifies AWS resource the policy applies to
+- Condition :- Adds conditional logic to apply permissions only if specific conditions are met
+
+--------------------------------------------------------------------------------------------------
+
+How do IAM roles integrate with Amazon EC2 instances securely?
+-
+- IAM roles integrate with EC2 securely using instance profiles, which allow EC2 instances to obtain temporary security creds automatically.
+- This way we can securely grant permissions to apps in EC2 without hardcoding access keys
+
+- Create IAM role for EC2
+- Attach role to EC2
+- Verify role access from EC2
+- Access AWS services securely
+
+--------------------------------------------------------------------------------------------------
+
+What is the difference between AWS:SourceIp and AWS:VpcSourceIp in IAM conditions?
+-
+- In AWS IAM policies, the aws:SourceIp and aws:VpcSourceIp condition keys are both used to specify IP address-based conditions for granting or denying access, but they operate in slightly different contexts
+
+- **aws:SourceIP** :- Refers to IP of client making request, from anywhere. Use this when we want to limit access based on public or external IP addresses
+- **aws:VpcSourceIp** :- Refers to IP within VPC that makes request. Use this when we need to control access based on network of our VPC such as enforcing that only EC2 within certain subnet can access resource
