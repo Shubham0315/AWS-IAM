@@ -291,3 +291,29 @@ Explain the purpose of AWS IAM Conditions in policies.
 ✅ Flexibility: Allows dynamic conditions without modifying core policy logic.
 
 --------------------------------------------------------------------------------------------------
+
+How do AWS Service Control Policies (SCP) work with IAM?
+-
+- AWS SCPs are type of pilicies that we can use to manage permissions in our AWS organizations.
+- SCPs are designed to enforce guardrails across multiple AWS accounts in organization, ensuring that no user, role or service within account can perform restricted actions even if they've appropriate IAM permissions.
+
+--------------------------------------------------------------------------------------------------
+
+What is AWS STS (Security Token Service) and how is it used with IAM?
+-
+- AWS STS is a web sevice that enables you to request temporary, limited privilege credentials for AWS resources.
+- These creds are ideal for granting secure, short-term access to resources without need to create long term IAM user credentials.
+
+- Key Features :-
+  - Temporary creds
+  - Automatic Expiry
+  - Cross account access
+  - Federated Access
+ 
+- How STS works with IAM
+  - IAM role/user requests temporary creds from STS
+  - STS issues temporary creds
+  - Temporary creds used by AWS requests
+  - AWS verifies creds
+ 
+--------------------------------------------------------------------------------------------------
