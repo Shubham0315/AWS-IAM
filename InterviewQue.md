@@ -282,9 +282,9 @@ Explain the purpose of AWS IAM Conditions in policies.
 - Conditions are used in IAM policies to add fine grained control over when and how permissions are granted
 - By adding conditions, you can define specific requirements that must be met for an action to be allowed or denied.
 
-✅ Enhanced Security: Adds extra layers of control beyond standard permission rules.
-✅ Granular Control: Limits permissions based on context such as IP address, time, or MFA status.
-✅ Flexibility: Allows dynamic conditions without modifying core policy logic.
+- ✅ Enhanced Security: Adds extra layers of control beyond standard permission rules.
+- ✅ Granular Control: Limits permissions based on context such as IP address, time, or MFA status.
+- ✅ Flexibility: Allows dynamic conditions without modifying core policy logic.
 
 --------------------------------------------------------------------------------------------------
 
