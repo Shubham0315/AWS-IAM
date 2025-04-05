@@ -225,11 +225,6 @@ What is an IAM permissions boundary?
 - To create and attach permission boundary
   - Create policy
   - Attach policy as Permissions boundary :- select user/role - set permission boundary
- 
---------------------------------------------------------------------------------------------------
-
-How can you delegate permissions across AWS accounts?
--
 
 --------------------------------------------------------------------------------------------------
 
@@ -245,6 +240,7 @@ What is the AWS IAM best practice for granting permissions to applications?
 --------------------------------------------------------------------------------------------------
 
 How can you delegate permissions across AWS accounts?
+-
 - We can use IAM roles with cross-account access
 - It allows secure, controlled access between AWS accounts without sharing security credentials
 
