@@ -5,7 +5,7 @@ How IAM is used for Authentication and Authorization in AWS covering topics like
 - Here to enter a bank, person should be authenticated (having bank account). Then they verify what kind of authorization that person has like bank employee, account holder and depending on that person is diverted to respective services desk.
 - So bank does setup a dedicated authentication and authorization process
 
-- Suppose we're workimg for a company and we've AWS account where we've services like EC2, DB, K8S. Account is created using gmail id as root so we can do anything in account
+- Suppose we're working for a company and we've AWS account where we've services like EC2, DB, K8S. Account is created using gmail id as root so we can do anything in account
 -   If there is no authorization and authentication process, devops engineer will give access to everyone in company. So other people can have root permissions as well and they can access the services of root and can delete our work which is a Disadvantage.
 
 -   Thus AWS comes up with IAM (Identity and Access Management) which does authentication and authorization for us
